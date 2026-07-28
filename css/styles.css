@@ -5,6 +5,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
@@ -304,5 +305,41 @@ html {
   .product-card {
     flex: 0 0 calc(25% - 18px);
     max-width: calc(25% - 18px);
+  }
+}
+
+/* ===== ANDROID / MOBILE OPTIMIZATIONS ===== */
+
+/* Prevent auto-zoom on input focus (Android requires 16px minimum) */
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  .icon-btn,
+  .carousel-arrow,
+  .social-link {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  #mobileMenu > div {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+
+  .modal-content {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+
+  footer .max-w-7xl {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }

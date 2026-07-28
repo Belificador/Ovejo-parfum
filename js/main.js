@@ -223,7 +223,7 @@ function updateCartUI() {
     let itemsHtml = cart.map(item => `
       <div class="cart-item">
         <div class="cart-item-img ${item.catClass}">
-          <span class="text-[8px] uppercase tracking-wider text-white/80">${item.category}</span>
+          <span class="text-[10px] uppercase tracking-wider text-white/80">${item.category}</span>
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-xs text-olive/50">${item.brand}</p>
@@ -341,7 +341,7 @@ function openCategoryModal(category) {
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
           </div>
           <div class="p-3 sm:p-4">
-            <p class="text-[10px] uppercase tracking-wider text-olive/50">${p.brand}</p>
+            <p class="text-xs uppercase tracking-wider text-olive/50">${p.brand}</p>
             <h4 class="font-serif font-bold text-sm sm:text-base truncate">${p.name}</h4>
             <div class="flex items-center justify-between mt-2">
               <span class="text-base sm:text-lg font-bold">$${p.price.toFixed(2)}</span>
