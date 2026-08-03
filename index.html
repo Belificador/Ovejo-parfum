@@ -73,11 +73,12 @@
 
         <!-- Action icons -->
         <div class="flex items-center space-x-3 sm:space-x-5 text-lg sm:text-xl text-olive">
-          <button class="icon-btn" aria-label="Buscar">
+          <button id="searchBtn" class="icon-btn" aria-label="Buscar">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
-          <button class="icon-btn" aria-label="Favoritos">
+          <button id="favBtn" class="icon-btn relative" aria-label="Favoritos">
             <i class="fa-regular fa-heart"></i>
+            <span id="favBadge" class="absolute -top-2.5 -right-2.5 bg-gold text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center leading-none">0</span>
           </button>
           <button id="cartBtn" class="icon-btn relative" aria-label="Carrito">
             <i class="fa-solid fa-bag-shopping"></i>
@@ -269,11 +270,12 @@
         <div>
           <h5 class="font-serif font-bold text-gold mb-4 uppercase text-sm tracking-wider">Políticas</h5>
           <ul class="space-y-2.5 text-sm text-white/70">
-            <li><a href="#" class="footer-link">Privacidad</a></li>
-            <li><a href="#" class="footer-link">Términos y Condiciones</a></li>
-            <li><a href="#" class="footer-link">Guía de Envíos</a></li>
-            <li><a href="#" class="footer-link">Preguntas Frecuentes</a></li>
+            <li><a href="#" class="footer-link" data-policy="privacidad">Privacidad</a></li>
+            <li><a href="#" class="footer-link" data-policy="terminos">Términos y Condiciones</a></li>
+            <li><a href="#" class="footer-link" data-policy="envios">Guía de Envíos</a></li>
+            <li><a href="#" class="footer-link" data-policy="faq">Preguntas Frecuentes</a></li>
           </ul>
+          <div id="policyContent" class="mt-5"></div>
         </div>
 
         <!-- Contact -->
@@ -420,6 +422,55 @@
     </div>
   </div>
 
+  <!-- ===== SEARCH MODAL ===== -->
+  <div id="searchModal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[85] hidden opacity-0 items-center justify-center p-4">
+    <div class="modal-content bg-cream rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl opacity-0 scale-95">
+      <div class="sticky top-0 bg-cream z-10 flex items-center justify-between p-6 sm:p-8 border-b border-ivory">
+        <h3 class="text-2xl font-serif font-bold">Buscar perfumes</h3>
+        <button id="searchClose" class="text-2xl text-olive/40 hover:text-olive transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-6 sm:p-8">
+        <div class="relative mb-6">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-olive/40"></i>
+          <input id="searchInput" type="text" placeholder="Busca por nombre, marca o categoría…" autocomplete="off" class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-ivory bg-white text-olive placeholder:text-olive/30 focus:outline-none focus:border-gold transition-colors">
+        </div>
+        <p id="searchCount" class="text-sm text-olive/50 mb-4"></p>
+        <div id="searchGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <!-- Products injected by JS -->
+        </div>
+        <div id="searchEmpty" class="hidden text-center py-16 px-8">
+          <div class="text-6xl mb-4 opacity-30"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <h3 class="text-2xl font-serif font-bold text-olive">Sin resultados</h3>
+          <p class="text-olive/50 mt-2">Prueba con otra marca, nombre o categoría.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FAVORITES MODAL ===== -->
+  <div id="favoritesModal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[88] hidden opacity-0 items-center justify-center p-4">
+    <div class="modal-content bg-cream rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl opacity-0 scale-95">
+      <div class="sticky top-0 bg-cream z-10 flex items-center justify-between p-6 sm:p-8 border-b border-ivory">
+        <h3 class="text-2xl font-serif font-bold">Mis Favoritos</h3>
+        <button id="favClose" class="text-2xl text-olive/40 hover:text-olive transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-6 sm:p-8">
+        <div id="favGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <!-- Products injected by JS -->
+        </div>
+        <div id="favEmpty" class="hidden text-center py-16 px-8">
+          <div class="text-6xl mb-4 opacity-30"><i class="fa-regular fa-heart"></i></div>
+          <h3 class="text-2xl font-serif font-bold text-olive">Aún no tienes favoritos</h3>
+          <p class="text-olive/50 mt-2">Toca el corazón de cualquier perfume para guardarlo aquí.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== WELCOME POPUP ===== -->
   <div id="welcomePopup" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden opacity-0 items-center justify-center p-4">
     <div class="modal-content relative bg-cream rounded-2xl max-w-md w-full p-8 sm:p-10 text-center shadow-2xl opacity-0 scale-95">
@@ -447,6 +498,8 @@
     </div>
   </div>
 
+  <script src="js/products.js"></script>
+  <script src="js/favorites.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

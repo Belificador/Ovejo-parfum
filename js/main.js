@@ -1,16 +1,7 @@
 // ============================================================
-// DATA
+// DATA (definida en js/products.js)
 // ============================================================
-const products = [
-  { id: 1, brand: 'Lattafa', name: 'Oud for Glory', category: 'Árabe', catClass: 'bg-arabe', price: 49.99, image: 'Oud for Glory.avif' },
-  { id: 2, brand: 'Amouage', name: 'Interlude Black Iris', category: 'Nicho', catClass: 'bg-nicho', price: 195.00, image: 'Interlude Black Iris.avif' },
-  { id: 3, brand: 'Tom Ford', name: 'Oud Wood', category: 'Diseñador', catClass: 'bg-disenador', price: 245.00, image: 'Oud Wood.avif' },
-  { id: 4, brand: 'Maison Alhambra', name: 'Tobacco Touch', category: 'Árabe', catClass: 'bg-arabe', price: 29.99, image: 'Tobacco Touch.avif' },
-  { id: 5, brand: 'Creed', name: 'Aventus', category: 'Diseñador', catClass: 'bg-disenador', price: 335.00, image: 'Creed Aventus.avif' },
-  { id: 6, brand: 'Byredo', name: 'Gypsy Water', category: 'Nicho', catClass: 'bg-nicho', price: 220.00, image: 'Gypsy watter.avif' },
-  { id: 7, brand: 'Rasasi', name: 'La Yuqawam', category: 'Árabe', catClass: 'bg-arabe', price: 59.99, image: 'La Yuqawam.avif' },
-  { id: 8, brand: 'Kilian', name: 'Angels Share', category: 'Nicho', catClass: 'bg-nicho', price: 275.00, image: 'Angels Share.avif' },
-];
+const products = window.products || [];
 
 // ============================================================
 // STATE
@@ -57,7 +48,16 @@ const categoryModalClose = $('categoryModalClose');
 const categoryGrid = $('categoryGrid');
 const categoryEmpty = $('categoryEmpty');
 const menuClose = $('menuClose');
+const menuToggle = $('menuToggle');
 const mobileMenu = $('mobileMenu');
+
+const searchBtn = $('searchBtn');
+const searchModal = $('searchModal');
+const searchClose = $('searchClose');
+const searchInput = $('searchInput');
+const searchGrid = $('searchGrid');
+const searchCount = $('searchCount');
+const searchEmpty = $('searchEmpty');
 
 // ============================================================
 // RENDER PRODUCTS
@@ -66,7 +66,7 @@ function renderProducts() {
   if (!track) return;
   track.innerHTML = products.map(p => `
     <div class="product-card">
-      <div class="product-img ${p.catClass}">
+      <a href="producto.html?id=${p.id}" class="product-img ${p.catClass} no-underline">
         <img src="Imagenes/${p.image}" alt="${p.brand} - ${p.name}" loading="lazy" width="400" height="400" class="absolute inset-0 w-full h-full object-contain">
         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
         <span class="overlay-badge z-10" style="background:rgba(0,0,0,0.5);">${p.category}</span>
@@ -74,10 +74,13 @@ function renderProducts() {
           <p class="text-xs uppercase tracking-widest opacity-80 drop-shadow-md">${p.brand}</p>
           <p class="text-lg font-serif font-bold mt-0.5 drop-shadow-lg">${p.name}</p>
         </div>
-      </div>
+      </a>
       <div class="p-5">
-        <p class="text-xs uppercase tracking-wider text-olive/50 mb-0.5">${p.brand}</p>
-        <h4 class="font-serif font-bold text-base">${p.name}</h4>
+        <div class="flex items-start justify-between gap-2 mb-0.5">
+          <p class="text-xs uppercase tracking-wider text-olive/50">${p.brand}</p>
+          ${heartButtonHTML(p)}
+        </div>
+        <a href="producto.html?id=${p.id}" class="font-serif font-bold text-base no-underline hover:text-gold transition-colors">${p.name}</a>
         <div class="flex items-center justify-between mt-3">
           <span class="text-lg font-bold">$${p.price.toFixed(2)}</span>
           <button onclick="addToCart(${p.id}, this)" class="bg-olive hover:bg-gold text-white text-xs font-medium px-4 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-1.5">
@@ -336,13 +339,16 @@ function openCategoryModal(category) {
     } else {
       categoryGrid.innerHTML = filtered.map(p => `
         <div class="bg-white rounded-xl overflow-hidden border border-ivory transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-          <div class="aspect-[3/4] relative ${p.catClass}">
+          <a href="producto.html?id=${p.id}" class="aspect-[3/4] relative block ${p.catClass} no-underline">
             <img src="Imagenes/${p.image}" alt="${p.brand} - ${p.name}" loading="lazy" width="400" height="400" class="absolute inset-0 w-full h-full object-contain p-3">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-          </div>
+          </a>
           <div class="p-3 sm:p-4">
-            <p class="text-xs uppercase tracking-wider text-olive/50">${p.brand}</p>
-            <h4 class="font-serif font-bold text-sm sm:text-base truncate">${p.name}</h4>
+            <div class="flex items-start justify-between gap-2">
+              <p class="text-xs uppercase tracking-wider text-olive/50">${p.brand}</p>
+              ${heartButtonHTML(p)}
+            </div>
+            <a href="producto.html?id=${p.id}" class="font-serif font-bold text-sm sm:text-base truncate block no-underline hover:text-gold transition-colors">${p.name}</a>
             <div class="flex items-center justify-between mt-2">
               <span class="text-base sm:text-lg font-bold">$${p.price.toFixed(2)}</span>
               <button onclick="addToCart(${p.id}, this)" class="bg-olive hover:bg-gold text-white text-xs font-medium px-3 py-2 rounded-xl transition-all duration-300">
@@ -368,6 +374,95 @@ if (categoryModalClose) categoryModalClose.addEventListener('click', closeCatego
 if (categoryModal) {
   categoryModal.addEventListener('click', (e) => {
     if (e.target === categoryModal) closeCategoryModal();
+  });
+}
+
+// ============================================================
+// SEARCH MODAL
+// ============================================================
+function normalizeText(str) {
+  return (str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function openSearchModal() {
+  const [ov, ct] = getModalChildren(searchModal);
+  if (!ov || !ct) return;
+
+  if (searchInput) {
+    searchInput.value = '';
+    renderSearchResults('');
+  }
+  openModal(ov, ct);
+  setTimeout(() => searchInput && searchInput.focus(), 50);
+}
+
+function closeSearchModal() {
+  const [ov, ct] = getModalChildren(searchModal);
+  closeModal(ov, ct);
+}
+
+function renderSearchResults(query) {
+  if (!searchGrid || !searchCount) return;
+  const q = normalizeText(query);
+
+  let filtered = products;
+  if (q) {
+    filtered = products.filter(p =>
+      normalizeText(p.name).includes(q) ||
+      normalizeText(p.brand).includes(q) ||
+      normalizeText(p.category).includes(q)
+    );
+  }
+
+  searchCount.textContent = q
+    ? `${filtered.length} ${filtered.length === 1 ? 'resultado' : 'resultados'} para "${query}"`
+    : '';
+
+  if (searchEmpty) searchEmpty.classList.toggle('hidden', filtered.length > 0);
+
+  if (filtered.length === 0) {
+    searchGrid.innerHTML = '';
+    return;
+  }
+
+  searchGrid.innerHTML = filtered.map(p => `
+    <div class="bg-white rounded-xl overflow-hidden border border-ivory transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <a href="producto.html?id=${p.id}" class="aspect-[3/4] relative block ${p.catClass} no-underline">
+        <img src="Imagenes/${p.image}" alt="${p.brand} - ${p.name}" loading="lazy" width="400" height="400" class="absolute inset-0 w-full h-full object-contain p-3">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      </a>
+      <div class="p-3 sm:p-4">
+        <div class="flex items-start justify-between gap-2">
+          <p class="text-xs uppercase tracking-wider text-olive/50">${p.brand}</p>
+          ${heartButtonHTML(p)}
+        </div>
+        <a href="producto.html?id=${p.id}" class="font-serif font-bold text-sm sm:text-base truncate block no-underline hover:text-gold transition-colors">${p.name}</a>
+        <div class="flex items-center justify-between mt-2">
+          <span class="text-base sm:text-lg font-bold">$${p.price.toFixed(2)}</span>
+          <button onclick="addToCart(${p.id}, this)" class="bg-olive hover:bg-gold text-white text-xs font-medium px-3 py-2 rounded-xl transition-all duration-300">
+            <i class="fa-solid fa-plus"></i> Añadir
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+if (searchBtn) searchBtn.addEventListener('click', openSearchModal);
+if (searchClose) searchClose.addEventListener('click', closeSearchModal);
+
+if (searchModal) {
+  searchModal.addEventListener('click', (e) => {
+    if (e.target === searchModal) closeSearchModal();
+  });
+}
+
+if (searchInput) {
+  searchInput.addEventListener('input', (e) => {
+    renderSearchResults(e.target.value);
+  });
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') e.preventDefault();
   });
 }
 
@@ -660,6 +755,8 @@ document.addEventListener('keydown', (e) => {
       closeModal(co, cc);
     } else if (categoryModal && !categoryModal.classList.contains('hidden')) {
       closeCategoryModal();
+    } else if (searchModal && !searchModal.classList.contains('hidden')) {
+      closeSearchModal();
     } else if (welcomePopup && !welcomePopup.classList.contains('hidden')) {
       closeWelcomePopup();
     } else if (cartSidebar && !cartSidebar.classList.contains('translate-x-full')) {
@@ -669,6 +766,152 @@ document.addEventListener('keydown', (e) => {
       document.body.style.overflow = '';
     }
   }
+});
+
+// ============================================================
+// POLICIES (desplegable en el footer)
+// ============================================================
+const policies = {
+  privacidad: {
+    title: 'Privacidad',
+    sections: [
+      {
+        heading: 'Datos que recopilamos',
+        body: 'En Ovejo Parfum únicamente recopilamos la información necesaria para procesar tu pedido y ofrecerte un mejor servicio: nombre, correo electrónico, teléfono y dirección de envío. Al registrarte o suscribirte, también guardamos tu preferencia de contacto.'
+      },
+      {
+        heading: 'Uso de la información',
+        body: 'Tus datos se utilizan exclusivamente para gestionar compras, enviar notificaciones de tus pedidos, y si lo autorizaste, enviarte promociones y novedades. Nunca vendemos ni compartimos tu información con terceros con fines comerciales.'
+      },
+      {
+        heading: 'Cookies',
+        body: 'Utilizamos cookies para recordar tu carrito y preferencias, así como para medir el rendimiento del sitio. Puedes desactivarlas desde tu navegador en cualquier momento; el sitio seguirá funcionando.'
+      },
+      {
+        heading: 'Protección de datos',
+        body: 'Tus datos se almacenan de forma segura y se protegen con medidas técnicas adecuadas. Solo los utiliza el personal autorizado para procesar tu pedido.'
+      },
+      {
+        heading: 'Tus derechos',
+        body: 'Puedes solicitar en cualquier momento el acceso, corrección o eliminación de tus datos personales escribiéndonos a hola@ovejoparfum.com. Responderemos a la brevedad.'
+      }
+    ]
+  },
+  terminos: {
+    title: 'Términos y Condiciones',
+    sections: [
+      {
+        heading: 'Uso del sitio',
+        body: 'Al navegar y comprar en Ovejo Parfum aceptas los presentes términos. El contenido, imágenes y marcas son propiedad de Ovejo Parfum y no pueden reproducirse sin autorización.'
+      },
+      {
+        heading: 'Precios y pagos',
+        body: 'Los precios están expresados en dólares (USD) y pueden cambiar sin previo aviso. El precio aplicable es el publicado al momento de confirmar tu pedido. Aceptamos los métodos de pago disponibles en la tienda.'
+      },
+      {
+        heading: 'Autenticidad 100%',
+        body: 'Todos nuestros productos son 100% originales y adquiridos directamente de distribuidor autorizado. Cada perfume incluye su empaque y código de verificación cuando aplica.'
+      },
+      {
+        heading: 'Devoluciones y cambios',
+        body: 'Aceptamos cambios y devoluciones dentro de los 14 días posteriores a la entrega, siempre que el producto no haya sido abierto ni usado y conserve su empaque original. Para iniciar el proceso escríbenos a hola@ovejoparfum.com.'
+      },
+      {
+        heading: 'Limitación de responsabilidad',
+        body: 'Ovejo Parfum no se hace responsable por el uso indebido de los productos ni por reacciones alérgicas que puedan presentarse al no ser testeados previamente sobre la piel.'
+      }
+    ]
+  },
+  envios: {
+    title: 'Guía de Envíos',
+    sections: [
+      {
+        heading: 'Tiempos de entrega',
+        body: 'Procesamos tu pedido en un máximo de 24 horas hábiles. Los envíos nacionales llegan en un promedio de 3 a 7 días hábiles, dependiendo de tu ubicación.'
+      },
+      {
+        heading: 'Costo de envío',
+        body: 'Ofrecemos envío gratis en compras seleccionadas y promociones vigentes. Para el resto de los pedidos, el costo se calcula al finalizar la compra según tu código postal.'
+      },
+      {
+        heading: 'Empaque seguro',
+        body: 'Cada perfume se envía en empaque hermético y protector para garantizar que llegue en perfectas condiciones. Incluimos muestras gratis en cada pedido.'
+      },
+      {
+        heading: 'Rastreo',
+        body: 'Una vez enviado tu pedido, recibirás un número de guía por correo para dar seguimiento a tu paquete en tiempo real.'
+      },
+      {
+        heading: 'Cobertura',
+        body: 'Realizamos envíos a todo el país. Para envíos internacionales o dudas sobre tu zona, contáctanos por WhatsApp al +52 55 1234 5678.'
+      }
+    ]
+  },
+  faq: {
+    title: 'Preguntas Frecuentes',
+    sections: [
+      {
+        heading: '¿Cómo sé que los productos son originales?',
+        body: 'Trabajamos directamente con distribuidores autorizados y garantizamos la autenticidad del 100% de nuestros productos. En caso de dudas, podemos mostrarte el código de verificación del perfume.'
+      },
+      {
+        heading: '¿Cuáles son los métodos de pago?',
+        body: 'Aceptamos las tarjetas de crédito y débito disponibles al finalizar la compra. Para pagos por transferencia o métodos especiales, escríbenos por WhatsApp.'
+      },
+      {
+        heading: '¿Cuánto tarda mi pedido en llegar?',
+        body: 'Los envíos nacionales tardan en promedio de 3 a 7 días hábiles después de procesado tu pedido. Recibirás tu número de guía para rastrearlo.'
+      },
+      {
+        heading: '¿Vienen muestras gratis?',
+        body: 'Sí, incluimos muestras gratis en cada pedido para que descubras nuevos aromas sin costo adicional.'
+      },
+      {
+        heading: '¿Cómo hago una devolución?',
+        body: 'Tienes 14 días desde la entrega para solicitar un cambio o devolución, siempre que el producto esté sin abrir y en su empaque original. Escríbenos a hola@ovejoparfum.com para iniciar el proceso.'
+      }
+    ]
+  }
+};
+
+let activePolicyKey = null;
+
+function openPolicy(key) {
+  const container = document.getElementById('policyContent');
+  if (!container || !policies[key]) return;
+
+  if (activePolicyKey === key) {
+    container.innerHTML = '';
+    activePolicyKey = null;
+    document.querySelectorAll('[data-policy]').forEach(l => l.classList.remove('policy-active'));
+    return;
+  }
+
+  const data = policies[key];
+  activePolicyKey = key;
+
+  container.innerHTML = `
+    <div class="bg-white/5 border border-white/10 rounded-xl p-4 animate-fadeIn">
+      <h6 class="font-serif font-bold text-gold mb-3">${data.title}</h6>
+      ${data.sections.map(s => `
+        <div class="mb-3">
+          <p class="text-white/90 font-medium text-sm mb-1">${s.heading}</p>
+          <p class="text-white/60 text-xs leading-relaxed">${s.body}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.querySelectorAll('[data-policy]').forEach(l => l.classList.remove('policy-active'));
+  const activeLink = document.querySelector(`[data-policy="${key}"]`);
+  if (activeLink) activeLink.classList.add('policy-active');
+}
+
+document.querySelectorAll('[data-policy]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPolicy(link.dataset.policy);
+  });
 });
 
 // ============================================================
