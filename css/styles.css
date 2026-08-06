@@ -6,6 +6,18 @@
 html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+label {
+  touch-action: manipulation;
 }
 
 ::selection {
@@ -255,9 +267,15 @@ html {
 /* Modal transitions */
 .modal-overlay {
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  overscroll-behavior: contain;
 }
 .modal-content {
   transition: opacity 0.3s ease, transform 0.3s ease;
+  overscroll-behavior-y: contain;
+}
+#cartSidebar,
+#cartItems {
+  overscroll-behavior-y: contain;
 }
 
 /* ===== CATEGORY MODAL ===== */
@@ -472,6 +490,11 @@ html {
     min-width: 44px;
     min-height: 44px;
   }
+
+  .fav-btn {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* Safe area insets for notched devices */
@@ -483,6 +506,10 @@ html {
   .modal-content {
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+
+  #cartFooter {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
 
   footer .max-w-7xl {

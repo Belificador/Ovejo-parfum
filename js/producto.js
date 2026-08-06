@@ -397,7 +397,7 @@ function renderDetail() {
     : '';
 
   detail.innerHTML = `
-    <div class="sticky top-24">
+    <div class="lg:sticky lg:top-20">
       <div class="relative overflow-hidden rounded-2xl ${product.catClass} aspect-[3/4] shadow-xl">
         <img id="galleryImg" src="Imagenes/${galleryImages[0]}" alt="${product.brand} - ${product.name}" class="absolute inset-0 w-full h-full object-contain p-8 sm:p-12">
         <span class="overlay-badge z-30" style="background:rgba(0,0,0,0.5);">${product.category}</span>

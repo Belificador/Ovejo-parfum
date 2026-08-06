@@ -843,7 +843,7 @@ const policies = {
       },
       {
         heading: 'Cobertura',
-        body: 'Realizamos envíos a todo el país. Para envíos internacionales o dudas sobre tu zona, contáctanos por WhatsApp al +52 55 1234 5678.'
+        body: 'Realizamos envíos a todo el país. Para envíos internacionales o dudas sobre tu zona, contáctanos por WhatsApp al +58 412-5663647.'
       }
     ]
   },

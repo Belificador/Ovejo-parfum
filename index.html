@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>OVEJO PARFUM — Perfumes Árabes, Nicho & Diseñador</title>
   <meta name="description" content="Descubre la perfumería de autor, árabe y de diseñador en Ovejo Parfum. 100% original, envíos rápidos y muestras gratis.">
   <link rel="icon" type="image/png" href="Imagenes/Logo1.png">
@@ -87,45 +88,47 @@
         </div>
       </div>
     </div>
-
-    <!-- Mobile menu drawer -->
-    <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 bg-olive/50 backdrop-blur-sm translate-x-full transition-transform duration-300">
-      <div class="bg-cream h-full w-72 max-w-[80vw] ml-auto p-6 shadow-2xl flex flex-col">
-        <div class="flex justify-end mb-8">
-          <button id="menuClose" class="text-2xl text-olive hover:text-gold transition-colors">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <a href="#" class="mobile-link">Perfumes Árabes</a>
-        <a href="#" class="mobile-link">Perfumes Nicho</a>
-        <a href="#" class="mobile-link">Perfumes Diseñador</a>
-        <a href="#" class="mobile-link">Decants / Muestras</a>
-      </div>
-    </div>
   </nav>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section class="relative overflow-hidden bg-ivory min-h-[70vh] sm:min-h-[90vh] flex items-center">
-    <div class="absolute inset-0">
-      <img src="Imagenes/Banner Oveja.png" alt="Ovejo Parfum" loading="lazy" width="1920" height="1080" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-r from-olive/80 via-olive/50 to-transparent"></div>
+  <!-- ===== MOBILE MENU (fuera del nav para que fixed funcione en Android) ===== -->
+  <div id="mobileMenu" class="md:hidden fixed inset-0 z-[65] bg-olive/60 translate-x-full transition-transform duration-300">
+    <div class="bg-cream h-full w-72 max-w-[80vw] ml-auto p-6 shadow-2xl flex flex-col">
+      <div class="flex justify-end mb-8">
+        <button id="menuClose" class="text-2xl text-olive hover:text-gold transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <a href="#" class="mobile-link">Perfumes Árabes</a>
+      <a href="#" class="mobile-link">Perfumes Nicho</a>
+      <a href="#" class="mobile-link">Perfumes Diseñador</a>
+      <a href="#" class="mobile-link">Decants / Muestras</a>
     </div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
-      <div class="max-w-lg">
-        <span class="inline-block text-gold text-sm uppercase tracking-[0.3em] font-medium mb-4">Colección 2026</span>
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-          EXPLORA TU<br>ESENCIA ÚNICA
-        </h1>
-        <p class="text-white/85 text-base sm:text-lg md:text-xl font-light mb-8 max-w-md leading-relaxed">
-          Descubre la perfumería de autor, árabe y de diseñador. Encuentra tu firma olfativa. 
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="#productos" class="inline-block bg-gold hover:bg-gold/90 text-white font-medium px-8 py-3.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-            COMPRAR AHORA <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
-          </a>
-          <a href="#categorias" class="inline-block border-2 border-white/40 text-white hover:bg-white/10 font-medium px-8 py-3.5 rounded-xl transition-all duration-300">
-            EXPLORAR
-          </a>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="relative bg-ivory">
+    <div class="relative aspect-[16/9] sm:aspect-auto sm:min-h-[90vh] sm:min-h-[90svh]">
+      <img src="Imagenes/Banner Oveja.png" srcset="Imagenes/banner-640.webp 640w, Imagenes/banner-1280.webp 1280w, Imagenes/banner-1920.webp 1920w" sizes="100vw" alt="Ovejo Parfum" fetchpriority="high" loading="eager" width="1920" height="1080" class="absolute inset-0 w-full h-full object-cover object-center">
+      <div class="absolute inset-0 bg-gradient-to-b from-olive/30 via-olive/40 to-olive/70 sm:bg-gradient-to-r sm:from-olive/80 sm:via-olive/50 sm:to-transparent"></div>
+    </div>
+    <div class="relative sm:absolute sm:inset-0 sm:flex sm:items-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-0">
+        <div class="max-w-lg">
+          <span class="inline-block text-gold text-sm uppercase tracking-[0.3em] font-medium mb-4">Colección 2026</span>
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-olive sm:text-white leading-tight mb-6 text-balance">
+            EXPLORA TU<br>ESENCIA ÚNICA
+          </h1>
+          <p class="text-olive/75 sm:text-white/85 text-base sm:text-lg md:text-xl font-light mb-8 max-w-md leading-relaxed">
+            Descubre la perfumería de autor, árabe y de diseñador. Encuentra tu firma olfativa. 
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#productos" class="inline-block bg-gold hover:bg-gold/90 text-white font-medium px-8 py-3.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+              COMPRAR AHORA <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+            </a>
+            <a href="#categorias" class="inline-block border-2 border-olive/25 text-olive hover:bg-olive/10 sm:border-white/40 sm:text-white sm:hover:bg-white/10 font-medium px-8 py-3.5 rounded-xl transition-all duration-300">
+              EXPLORAR
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -138,11 +141,11 @@
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-2">Descubre nuestro mundo</h2>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid gap-6 lg:gap-8 md:grid-cols-3">
       <!-- Arabic -->
-      <a href="#" class="group category-card">
-        <div class="relative overflow-hidden rounded-2xl aspect-[4/5]">
-          <img src="Imagenes/arabe.png" alt="Perfumes Árabes" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <a href="#" class="group category-card" onclick="openCategoryModal('Árabe'); return false;">
+        <div class="relative overflow-hidden rounded-2xl aspect-square">
+          <img src="Imagenes/arabe.png" srcset="Imagenes/arabe.webp 900w" sizes="(min-width: 1024px) 400px, (min-width: 768px) 300px, 100vw" alt="Perfumes Árabes" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-olive/85 via-olive/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
             <span class="text-gold text-xs uppercase tracking-[0.2em] font-medium">Colección Exclusiva</span>
@@ -153,9 +156,9 @@
       </a>
 
       <!-- Niche -->
-      <a href="#" class="group category-card">
-        <div class="relative overflow-hidden rounded-2xl aspect-[4/5]">
-          <img src="Imagenes/nicho.png" alt="Perfumes Nicho" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <a href="#" class="group category-card" onclick="openCategoryModal('Nicho'); return false;">
+        <div class="relative overflow-hidden rounded-2xl aspect-square">
+          <img src="Imagenes/nicho.png" srcset="Imagenes/nicho.webp 900w" sizes="(min-width: 1024px) 400px, (min-width: 768px) 300px, 100vw" alt="Perfumes Nicho" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-olive/85 via-olive/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
             <span class="text-gold text-xs uppercase tracking-[0.2em] font-medium">Aromas de Autor</span>
@@ -166,9 +169,9 @@
       </a>
 
       <!-- Designer -->
-      <a href="#" class="group category-card">
-        <div class="relative overflow-hidden rounded-2xl aspect-[4/5]">
-          <img src="Imagenes/diseñador.png" alt="Perfumes Diseñador" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <a href="#" class="group category-card" onclick="openCategoryModal('Diseñador'); return false;">
+        <div class="relative overflow-hidden rounded-2xl aspect-square">
+          <img src="Imagenes/diseñador.png" srcset="Imagenes/diseñador.webp 900w" sizes="(min-width: 1024px) 400px, (min-width: 768px) 300px, 100vw" alt="Perfumes Diseñador" loading="lazy" width="800" height="1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-olive/85 via-olive/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
             <span class="text-gold text-xs uppercase tracking-[0.2em] font-medium">Estilo Urbano</span>
@@ -282,12 +285,12 @@
         <div>
           <h5 class="font-serif font-bold text-gold mb-4 uppercase text-sm tracking-wider">Contacto</h5>
           <ul class="space-y-2.5 text-sm text-white/70">
-            <li><a href="#" class="footer-link"><i class="fa-brands fa-whatsapp mr-2"></i> +52 55 1234 5678</a></li>
+            <li><a href="https://wa.me/+584125663647?text=Mensaje%20predefinido" target="_blank" rel="noopener" class="footer-link"><i class="fa-brands fa-whatsapp mr-2"></i> +58 412-5663647</a></li>
             <li><a href="#" class="footer-link"><i class="fa-regular fa-envelope mr-2"></i> hola@ovejoparfum.com</a></li>
             <li class="flex items-center gap-4 mt-4">
               <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
               <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://wa.me/+584125663647?text=Mensaje%20predefinido" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </li>
           </ul>
         </div>
@@ -363,7 +366,7 @@
           </div>
           <div>
             <label class="block text-sm font-medium mb-1.5">Teléfono</label>
-            <input type="tel" id="checkoutPhone" required placeholder="+52 55 1234 5678" class="w-full px-4 py-3 rounded-xl border border-ivory bg-white focus:outline-none focus:border-gold transition-colors">
+            <input type="tel" id="checkoutPhone" required placeholder="+58 412-5663647" class="w-full px-4 py-3 rounded-xl border border-ivory bg-white focus:outline-none focus:border-gold transition-colors">
           </div>
           <div>
             <label class="block text-sm font-medium mb-1.5">Dirección de Envío</label>
