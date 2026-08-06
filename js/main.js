@@ -701,12 +701,8 @@ const popupForm = $('popupForm');
 
 function showWelcomePopup() {
   if (!welcomePopup) return;
-  const hasSeen = localStorage.getItem('ovejo_popup_seen');
-  if (hasSeen) return;
-
   const [ov, ct] = getModalChildren(welcomePopup);
   openModal(ov, ct);
-  localStorage.setItem('ovejo_popup_seen', 'true');
 }
 
 function closeWelcomePopup() {
